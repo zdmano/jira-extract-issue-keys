@@ -22,10 +22,11 @@ async function extractJiraKeysFromCommit() {
             auth: token,
         });
         if (eventBody) {
-            console.log(eventBody);
+            console.log("parse-event-body input val provided...");
             const matches = matchAll(eventBody, regex).toArray();
             const result = matches.join(',');
             core.setOutput("jira-keys", result);
+            return;
         }
         if (isPullRequest) {
             let resultArr = [];
