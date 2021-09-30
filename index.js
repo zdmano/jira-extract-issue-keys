@@ -7,6 +7,7 @@ const Octokit = require("@octokit/rest");
 async function extractJiraKeysFromCommit() {
     try {
         console.log('Firing up');
+        const eventBody - core.getInput('parse-event-body');
         const regex = /((([A-Z]+)|([0-9]+))+-\d+)/g;
         const isPullRequest = core.getInput('is-pull-request') == 'true';
         console.log("isPullRequest: " + isPullRequest);
@@ -20,6 +21,12 @@ async function extractJiraKeysFromCommit() {
         const octokit = new Octokit({
             auth: token,
         });
+        if (eventBody) {
+            console.log(eventBody);
+            const matches = matchAll(eventBody, regex).toArray();
+            const result = matches.join(',');
+            core.setOutput("jira-keys", result);
+        }
         if (isPullRequest) {
             let resultArr = [];
             console.log("is pull request...");
