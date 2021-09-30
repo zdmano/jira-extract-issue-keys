@@ -6,6 +6,7 @@ const Octokit = require("@octokit/rest");
 async function extractJiraKeysFromCommit() {
     try {
         const regex = /((([A-Z]+)|([0-9]+))+-\d+)/g;
+        const eventBody = core.getInput('parse-event-body');
         const isPullRequest = core.getInput('is-pull-request') == 'true';
         console.log("isPullRequest: " + isPullRequest);
         const commitMessage = core.getInput('commit-message');
@@ -20,6 +21,13 @@ async function extractJiraKeysFromCommit() {
             auth: token,
         });
 
+        if(eventBody) {
+                console.log("parse-event-body input val provided...");
+                const matches = matchAll(commitMessage, regex).toArray();
+                const result = matches.join(',');
+                core.setOutput("jira-keys", result);
+        }
+        
         if (isPullRequest) {
             let resultArr: any = [];
 
