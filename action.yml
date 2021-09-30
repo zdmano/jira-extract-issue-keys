@@ -12,6 +12,9 @@ inputs:
   commit-message:
     description: 'commit message to be parsed for jira keys. Note that if this input is not provided, the commits found in github.context.payload will be used'
     required: false
+  parse-event-body:
+    description: 'Parse event body. Can be user if for prelease / release in case issue keys are detailed in the doby'
+    required: false
 
 outputs:
   jira-keys:
