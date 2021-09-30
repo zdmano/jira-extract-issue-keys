@@ -26,6 +26,7 @@ async function extractJiraKeysFromCommit() {
                 const matches = matchAll(commitMessage, regex).toArray();
                 const result = matches.join(',');
                 core.setOutput("jira-keys", result);
+                return;
         }
         
         if (isPullRequest) {
