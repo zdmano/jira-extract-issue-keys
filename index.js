@@ -27,9 +27,10 @@ async function extractJiraKeysFromCommit() {
             const matches = matchAll(eventBody, regex).toArray();
             const result = matches.join(',');
             core.setOutput("jira-keys", result);
+            console.log(result);
             return;
         }
-        
+
         if (isPullRequest) {
             let resultArr = [];
             console.log("is pull request...");
@@ -102,6 +103,6 @@ async function extractJiraKeysFromCommit() {
 }
 (async function () {
     await extractJiraKeysFromCommit();
-    // console.log("finished extracting jira keys from commit message");
+    console.log("finished extracting jira keys from commit message");
 })();
 exports.default = extractJiraKeysFromCommit;
