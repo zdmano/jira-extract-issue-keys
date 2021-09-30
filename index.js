@@ -21,6 +21,7 @@ async function extractJiraKeysFromCommit() {
         const octokit = new Octokit({
             auth: token,
         });
+
         if (eventBody) {
             console.log("parse-event-body input val provided...");
             const matches = matchAll(eventBody, regex).toArray();
@@ -28,6 +29,7 @@ async function extractJiraKeysFromCommit() {
             core.setOutput("jira-keys", result);
             return;
         }
+        
         if (isPullRequest) {
             let resultArr = [];
             console.log("is pull request...");
